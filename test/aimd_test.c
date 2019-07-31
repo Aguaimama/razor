@@ -54,7 +54,7 @@ static void near_max_increate_100ms_rtt()
 	aimd_destroy(aimd);
 }
 
-static inline near_expect(uint32_t src, uint32_t dst, uint32_t delta)
+static inline void near_expect(uint32_t src, uint32_t dst, uint32_t delta)
 {
 	assert(dst <= src + delta && dst >= src - delta);
 }

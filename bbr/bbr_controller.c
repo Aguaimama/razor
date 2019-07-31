@@ -76,7 +76,7 @@ static inline void bbr_set_default_config(bbr_config_t* config)
 
 bbr_controller_t* bbr_create(bbr_target_rate_constraint_t* co, int32_t starting_bandwidth)
 {
-	bbr_controller_t* bbr = calloc(1, sizeof(bbr_controller_t));
+	bbr_controller_t* bbr = (bbr_controller_t*)calloc(1, sizeof(bbr_controller_t));
 
 	/*初始化RTT统计模块*/
 	bbr_rtt_init(&bbr->rtt_stat);

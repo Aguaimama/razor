@@ -40,14 +40,14 @@ static double linear_fit_slope(delay_hist_t* que, int que_size)
 
 trendline_estimator_t* trendline_create(size_t wnd_size, double smoothing_coef, double threshold_gain)
 {
-	trendline_estimator_t* est = calloc(1, sizeof(trendline_estimator_t));
+	trendline_estimator_t* est = (trendline_estimator_t*)calloc(1, sizeof(trendline_estimator_t));
 	est->window_size = wnd_size;
 	est->smoothing_coef = smoothing_coef;
 	est->threshold_gain = threshold_gain;
 
 	est->first_arrival_ts = -1;
 
-	est->que = malloc(sizeof(delay_hist_t) * wnd_size);
+	est->que = (delay_hist_t*)malloc(sizeof(delay_hist_t) * wnd_size);
 
 	return est;
 }

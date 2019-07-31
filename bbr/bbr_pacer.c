@@ -15,7 +15,7 @@
 
 bbr_pacer_t* bbr_pacer_create(void* handler, pace_send_func send_cb, uint32_t que_ms, int padding)
 {
-	bbr_pacer_t* pace = calloc(1, sizeof(bbr_pacer_t));
+	bbr_pacer_t* pace = (bbr_pacer_t*)calloc(1, sizeof(bbr_pacer_t));
 	pace->last_update_ts = GET_SYS_MS();
 	pace->handler = handler;
 	pace->send_cb = send_cb;

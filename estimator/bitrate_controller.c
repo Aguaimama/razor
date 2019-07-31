@@ -23,7 +23,7 @@ static void inline maybe_trigger_network_changed(bitrate_controller_t* ctrl)
 
 bitrate_controller_t* bitrate_controller_create(void* trigger, bitrate_changed_func func)
 {
-	bitrate_controller_t* ctrl = calloc(1, sizeof(bitrate_controller_t));
+	bitrate_controller_t* ctrl = (bitrate_controller_t*)calloc(1, sizeof(bitrate_controller_t));
 	ctrl->last_bitrate_update_ts = GET_SYS_MS();
 	ctrl->notify_ts = ctrl->last_bitrate_update_ts;
 	ctrl->est = sender_estimation_create(10000, 1500000);

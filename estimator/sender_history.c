@@ -9,14 +9,14 @@
 
 static void free_packet_feedback(skiplist_item_t key, skiplist_item_t val, void* args)
 {
-	packet_feedback_t* packet = val.ptr;
+	packet_feedback_t* packet = (packet_feedback_t*)val.ptr;
 	if (packet != NULL)
 		free(packet);
 }
 
 sender_history_t* sender_history_create(uint32_t limited_ms)
 {
-	sender_history_t* hist = calloc(1, sizeof(sender_history_t));
+	sender_history_t* hist = (sender_history_t*)calloc(1, sizeof(sender_history_t));
 	
 	hist->limited_ms = limited_ms;
 	hist->l = skiplist_create(id64_compare, free_packet_feedback, NULL);
@@ -47,7 +47,7 @@ void sender_history_add(sender_history_t* hist, packet_feedback_t* packet)
 	/*去除过期的发送记录*/
 	while (skiplist_size(hist->l) > 0){
 		it = skiplist_first(hist->l);
-		p = it->val.ptr;
+		p = (packet_feedback_t*)it->val.ptr;
 		if (p->create_ts + hist->limited_ms < packet->send_ts){
 			if (it->key.i64 > hist->last_ack_seq_num){
 				hist->outstanding_bytes = SU_MAX(hist->outstanding_bytes - p->payload_size, 0);
@@ -60,7 +60,7 @@ void sender_history_add(sender_history_t* hist, packet_feedback_t* packet)
 			break;
 	}
 
-	p = malloc(sizeof(packet_feedback_t));
+	p = (packet_feedback_t*)malloc(sizeof(packet_feedback_t));
 	*p = *packet;
 
 	key.i64 = wrap_uint16(&hist->wrapper, packet->sequence_number);
@@ -86,7 +86,7 @@ int sender_history_get(sender_history_t* hist, uint16_t seq, packet_feedback_t* 
 		key.i64 = i;
 		it = skiplist_search(hist->l, key);
 		if (it != NULL){
-			p = it->val.ptr;
+			p = (packet_feedback_t*)it->val.ptr;
 			hist->outstanding_bytes = SU_MAX(hist->outstanding_bytes - p->payload_size, 0);
 		}
 	}
@@ -98,7 +98,7 @@ int sender_history_get(sender_history_t* hist, uint16_t seq, packet_feedback_t* 
 	if (it == NULL)
 		return -1;
 
-	p = it->val.ptr;
+	p = (packet_feedback_t*)it->val.ptr;
 	*packet = *p;
 
 	if (remove_flag == 1)

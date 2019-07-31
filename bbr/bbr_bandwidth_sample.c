@@ -26,10 +26,10 @@ static inline void sampler_to_point(bbr_bandwidth_sampler_t* sampler, bbr_packet
 
 bbr_bandwidth_sampler_t* sampler_create()
 {
-	bbr_bandwidth_sampler_t* sampler = calloc(1, sizeof(bbr_bandwidth_sampler_t));
+	bbr_bandwidth_sampler_t* sampler = (bbr_bandwidth_sampler_t*)calloc(1, sizeof(bbr_bandwidth_sampler_t));
 
 	sampler->size = kDefaultPoints;
-	sampler->points = malloc(sampler->size * sizeof(bbr_packet_point_t));
+	sampler->points = (bbr_packet_point_t*) malloc(sampler->size * sizeof(bbr_packet_point_t));
 
 	sampler_reset(sampler);
 

@@ -12,7 +12,7 @@
 
 kalman_filter_t* kalman_filter_create()
 {
-	kalman_filter_t* filter = calloc(1, sizeof(kalman_filter_t));
+	kalman_filter_t* filter = (kalman_filter_t*)calloc(1, sizeof(kalman_filter_t));
 
 	filter->slope = 8.0 / 512.0;
 	filter->var_noise = 0.0;

@@ -19,7 +19,7 @@ static void rbe_update_estimate(remote_bitrate_estimator_t* est, int64_t now_ts)
 
 remote_bitrate_estimator_t* rbe_create()
 {
-	remote_bitrate_estimator_t* rbe = calloc(1, sizeof(remote_bitrate_estimator_t));
+	remote_bitrate_estimator_t* rbe = (remote_bitrate_estimator_t*)calloc(1, sizeof(remote_bitrate_estimator_t));
 	rbe->interval_ts = k_process_interval_ms;
 	rbe->last_update_ts = GET_SYS_MS();
 	rbe->last_packet_ts = -1;

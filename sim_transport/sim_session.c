@@ -31,7 +31,7 @@ typedef void(*session_command_fn)(sim_session_t* s, uint64_t ts);
 
 sim_session_t* sim_session_create(uint16_t port, void* event, sim_notify_fn notify_cb, sim_change_bitrate_fn change_bitrate_cb, sim_state_fn state_cb)
 {
-	sim_session_t* session = calloc(1, sizeof(sim_session_t));
+	sim_session_t* session = (sim_session_t*)calloc(1, sizeof(sim_session_t));
 	session->scid = rand();
 	session->rcid = 0;
 	session->uid = 0;
@@ -299,7 +299,7 @@ void sim_session_calculate_rtt(sim_session_t* s, uint32_t keep_rtt)
 
 static void* sim_session_loop_event(void* arg)
 {
-	sim_session_t* s = arg;
+	sim_session_t* s = (sim_session_t*)arg;
 	bin_stream_t rstrm;
 	su_addr peer;
 	int rc;

@@ -12,7 +12,7 @@ void rate_stat_init(rate_stat_t* rate, int wnd_size, float scale)
 	rate->wnd_size = wnd_size;
 	rate->scale = scale;
 
-	rate->buckets = calloc(wnd_size, sizeof(rate_bucket_t));
+	rate->buckets = (rate_bucket_t*)calloc(wnd_size, sizeof(rate_bucket_t));
 	rate->accumulated_count = 0;
 	rate->sample_num = 0;
 

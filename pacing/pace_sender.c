@@ -14,7 +14,7 @@
 
 pace_sender_t* pace_create(void* handler, pace_send_func send_cb, uint32_t que_ms)
 {
-	pace_sender_t* pace = calloc(1, sizeof(pace_sender_t));
+	pace_sender_t* pace = (pace_sender_t*)calloc(1, sizeof(pace_sender_t));
 
 	pace->first_sent_ts = -1;
 	pace->last_update_ts = GET_SYS_MS();

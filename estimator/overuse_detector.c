@@ -18,7 +18,7 @@ static int kMaxTimeDeltaMs = 100;
 
 overuse_detector_t* overuse_create()
 {
-	overuse_detector_t* detector = calloc(1, sizeof(overuse_detector_t));
+	overuse_detector_t* detector = (overuse_detector_t*)calloc(1, sizeof(overuse_detector_t));
 
 	detector->k_up = 0.0187;
 	detector->k_down = 0.039;

@@ -28,10 +28,10 @@ static void test_no_crach()
 		rbe_incoming_packet(est, timestamp, now_ts, k_payload_size, now_ts);
 		now_ts += 100;
 		timestamp += 100;
-		rbe_heartbeat(est, now_ts, &strm);
+		rbe_heartbeat(est, now_ts, (uint32_t*)&strm);
 	}
 
-	assert(rbe_last_estimate(est, &bitrate) == 0);
+	assert(rbe_last_estimate(est, (uint32_t*)&bitrate) == 0);
 
 	rbe_destroy(est);
 }
@@ -55,10 +55,10 @@ static void test_overuse_bitrate()
 		rbe_incoming_packet(est, timestamp, now_ts, k_payload_size, now_ts);
 		now_ts += 52;
 		timestamp += 50;
-		rbe_heartbeat(est, now_ts, &strm);
+		rbe_heartbeat(est, now_ts, (uint32_t*)&strm);
 	}
 
-	assert(rbe_last_estimate(est, &bitrate) == 0);
+	assert(rbe_last_estimate(est, (uint32_t*)&bitrate) == 0);
 	assert(est->detector->state == kBwOverusing);
 
 	EXPECT_LT(bitrate, 20 * 1000 * 8);
@@ -90,10 +90,10 @@ static void test_normal_bitrate()
 			now_ts += 49;
 
 		timestamp += 50;
-		rbe_heartbeat(est, now_ts, &strm);
+		rbe_heartbeat(est, now_ts, (uint32_t*)&strm);
 	}
 
-	assert(rbe_last_estimate(est, &bitrate) == 0);
+	assert(rbe_last_estimate(est, (uint32_t*)&bitrate) == 0);
 	assert(est->detector->state == kBwNormal);
 
 	rbe_destroy(est);

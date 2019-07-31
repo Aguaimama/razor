@@ -75,7 +75,7 @@ static int inter_arrival_new_group(inter_arrival_t* arr, uint32_t ts, int64_t ar
 
 inter_arrival_t* create_inter_arrival(int burst, uint32_t group_ticks)
 {
-	inter_arrival_t* arr = calloc(1, sizeof(inter_arrival_t));
+	inter_arrival_t* arr = (inter_arrival_t*)calloc(1, sizeof(inter_arrival_t));
 	arr->burst = burst;
 	arr->time_group_len_ticks = group_ticks;
 

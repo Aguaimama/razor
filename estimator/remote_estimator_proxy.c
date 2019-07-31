@@ -16,7 +16,7 @@
 
 estimator_proxy_t* estimator_proxy_create(size_t packet_size, uint32_t ssrc)
 {
-	estimator_proxy_t* proxy = calloc(1, sizeof(estimator_proxy_t));
+	estimator_proxy_t* proxy = (estimator_proxy_t*)calloc(1, sizeof(estimator_proxy_t));
 	proxy->header_size = packet_size;
 	proxy->ssrc = ssrc;
 	proxy->hb_ts = -1;

@@ -9,7 +9,7 @@
 
 alr_detector_t* alr_detector_create()
 {
-	alr_detector_t* alr = calloc(1, sizeof(alr_detector_t));
+	alr_detector_t* alr = (alr_detector_t*)calloc(1, sizeof(alr_detector_t));
 	alr->alr_started_ts = -1;
 	init_interval_budget(&alr->budget, 0, 0);
 

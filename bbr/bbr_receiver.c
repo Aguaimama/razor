@@ -13,7 +13,7 @@
 
 bbr_receiver_t* bbr_receive_create(void* handler, send_feedback_func cb)
 {
-	bbr_receiver_t* cc = calloc(1, sizeof(bbr_receiver_t));
+	bbr_receiver_t* cc = (bbr_receiver_t*)calloc(1, sizeof(bbr_receiver_t));
 	cc->handler = handler;
 	cc->send_cb = cb;
 

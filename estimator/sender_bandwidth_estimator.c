@@ -26,7 +26,7 @@ static void cap_bitrate_to_threshold(sender_estimation_t* est, int64_t cur_ts, u
 
 sender_estimation_t* sender_estimation_create(uint32_t min_bitrate, uint32_t max_bitrate)
 {
-	sender_estimation_t* estimator = calloc(1, sizeof(sender_estimation_t));
+	sender_estimation_t* estimator = (sender_estimation_t*)calloc(1, sizeof(sender_estimation_t));
 	estimator->min_conf_bitrate = min_bitrate;
 	estimator->max_conf_bitrate = max_bitrate;
 	estimator->has_decreased_since_last_fraction_loss = -1;

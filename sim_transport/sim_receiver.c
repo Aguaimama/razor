@@ -16,14 +16,14 @@
 /************************************************播放缓冲区的定义**********************************************************/
 static sim_frame_cache_t* open_real_video_cache(sim_session_t* s)
 {
-	sim_frame_cache_t* cache = calloc(1, sizeof(sim_frame_cache_t));
+	sim_frame_cache_t* cache = (sim_frame_cache_t*)calloc(1, sizeof(sim_frame_cache_t));
 	cache->wait_timer = s->rtt + 2 * s->rtt_var;
 	cache->state = buffer_waiting;
 	cache->min_seq = 0;
 	cache->frame_timer = 100;
 	cache->f = 1.0f;
 	cache->size = CACHE_SIZE;
-	cache->frames = calloc(cache->size, sizeof(sim_frame_cache_t));
+	cache->frames = (sim_frame_t*)calloc(cache->size, sizeof(sim_frame_cache_t));
 	return cache;
 }
 
@@ -170,7 +170,7 @@ static int real_video_cache_put(sim_session_t* s, sim_frame_cache_t* c, sim_segm
 
 	if (frame->seg_number == 0){
 		frame->seg_number = seg->total;
-		frame->segments = calloc(frame->seg_number, sizeof(seg));
+		frame->segments = (sim_segment_t**)calloc(frame->seg_number, sizeof(seg));
 		frame->segments[seg->index] = seg;
 
 		ret = 0;
@@ -413,7 +413,7 @@ static void send_sim_feedback(void* handler, const uint8_t* payload, int payload
 
 sim_receiver_t* sim_receiver_create(sim_session_t* s, int transport_type)
 {
-	sim_receiver_t* r = calloc(1, sizeof(sim_receiver_t));
+	sim_receiver_t* r = (sim_receiver_t*)calloc(1, sizeof(sim_receiver_t));
 
 	r->loss = skiplist_create(idu32_compare, loss_free, NULL);
 	r->cache = open_real_video_cache(s);
@@ -526,7 +526,7 @@ static void sim_receiver_update_loss(sim_session_t* s, sim_receiver_t* r, uint32
 			key.u32 = i;
 			iter = skiplist_search(r->loss, key);
 			if (iter == NULL){
-				sim_loss_t* l = calloc(1, sizeof(sim_loss_t));
+				sim_loss_t* l = (sim_loss_t*)calloc(1, sizeof(sim_loss_t));
 				l->ts = now_ts - space;						/*设置下一个请求重传的时刻*/
 				l->loss_ts = now_ts;
 				l->count = 0;

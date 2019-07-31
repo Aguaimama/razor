@@ -12,7 +12,7 @@
 
 bbr_sender_t* bbr_sender_create(void* trigger, bitrate_changed_func bitrate_cb, void* handler, pace_send_func send_cb, int queue_ms, int padding)
 {
-	bbr_sender_t* s = calloc(1, sizeof(bbr_sender_t));
+	bbr_sender_t* s = (bbr_sender_t*)calloc(1, sizeof(bbr_sender_t));
 	s->bbr = NULL;
 	s->trigger = trigger;
 	s->trigger_cb = bitrate_cb;

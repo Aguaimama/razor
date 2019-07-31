@@ -1,5 +1,7 @@
 20190731 liucm add
+
 增加在linux下编译
+
 1.编译收发测试程序sim_receiver_test和sim_sender_test
   在razor目录下执行make clean;make
   在razor目录下生成sim_receiver_test和sim_sender_test

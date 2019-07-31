@@ -27,7 +27,7 @@ static void sender_cc_on_change_bitrate(void* handler, uint32_t bitrate, uint8_t
 
 sender_cc_t* sender_cc_create(void* trigger, bitrate_changed_func bitrate_cb, void* handler, pace_send_func send_cb, int queue_ms)
 {
-	sender_cc_t* cc = calloc(1, sizeof(sender_cc_t));
+	sender_cc_t* cc = (sender_cc_t*)calloc(1, sizeof(sender_cc_t));
 	cc->was_in_alr = -1;
 	cc->accepted_queue_ms = SU_MIN(queue_ms, k_max_queue_ms);
 

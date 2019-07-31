@@ -12,7 +12,7 @@
 
 aimd_rate_controller_t* aimd_create(uint32_t max_rate, uint32_t min_rate)
 {
-	aimd_rate_controller_t* aimd = calloc(1, sizeof(aimd_rate_controller_t));
+	aimd_rate_controller_t* aimd = (aimd_rate_controller_t*)calloc(1, sizeof(aimd_rate_controller_t));
 	aimd->max_rate = max_rate;
 	aimd->min_rate = min_rate;
 

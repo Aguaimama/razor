@@ -1,6 +1,8 @@
 #ifndef __test_04774_h_
 #define __test_04774_h_
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 void test_unwrapper();
 void test_trendline();
 void test_aimd();
@@ -21,7 +23,9 @@ void test_bbr_transfer_tracker();
 void test_bandwidth_sampler();
 void test_bbr_proc();
 void test_bbr_receiver();
-
+#ifdef __cplusplus
+}
+#endif
 #endif
 
 

@@ -14,7 +14,7 @@
 
 ack_bitrate_estimator_t* ack_estimator_create()
 {
-	ack_bitrate_estimator_t* est = malloc(sizeof(ack_bitrate_estimator_t));
+	ack_bitrate_estimator_t* est = (ack_bitrate_estimator_t*)malloc(sizeof(ack_bitrate_estimator_t));
 
 	ack_estimator_reset(est);
 

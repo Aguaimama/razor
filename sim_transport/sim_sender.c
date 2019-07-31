@@ -84,7 +84,7 @@ static void sim_send_packet(void* handler, uint32_t packet_id, int retrans, size
 			return;
 		}
 
-		seg = it->val.ptr;
+		seg = (sim_segment_t*)it->val.ptr;
 		/*每发送一次，就进行传输序号+1*/
 		seg->transport_seq = sender->transport_seq_seed++;
 		/*send_ts是相对当前帧产生的时间之差，用于接收端计算发送时间间隔*/
@@ -103,7 +103,7 @@ static void sim_send_packet(void* handler, uint32_t packet_id, int retrans, size
 
 void free_video_seg(skiplist_item_t key, skiplist_item_t val, void* args)
 {
-	sim_segment_t* seg = val.ptr;
+	sim_segment_t* seg = (sim_segment_t*)val.ptr;
 	if (seg != NULL)
 		free(seg);
 }
@@ -111,7 +111,7 @@ void free_video_seg(skiplist_item_t key, skiplist_item_t val, void* args)
 sim_sender_t* sim_sender_create(sim_session_t* s, int transport_type, int padding)
 {
 	int cc_type;
-	sim_sender_t* sender = calloc(1, sizeof(sim_sender_t));
+	sim_sender_t* sender = (sim_sender_t*)calloc(1, sizeof(sim_sender_t));
 	sender->first_ts = -1;
 
 	sender->cache = skiplist_create(idu32_compare, free_video_seg, s);
@@ -227,7 +227,7 @@ int sim_sender_put(sim_session_t* s, sim_sender_t* sender, uint8_t payload_type,
 	pos = (uint8_t*)data;
 	++sender->frame_id_seed;
 	for (i = 0; i < total; ++i){
-		seg = malloc(sizeof(sim_segment_t));
+		seg = (sim_segment_t*)malloc(sizeof(sim_segment_t));
 
 		seg->packet_id = ++sender->packet_id_seed;
 		seg->fid = sender->frame_id_seed;

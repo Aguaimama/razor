@@ -44,10 +44,11 @@ void				rate_stat_update(rate_stat_t* rate, size_t count, int64_t now_ts);
 
 int					rate_stat_rate(rate_stat_t* rate, int64_t now_ts);
 
-#endif
-
 #ifdef __cplusplus
 }
 #endif 
+
+#endif
+
 
 

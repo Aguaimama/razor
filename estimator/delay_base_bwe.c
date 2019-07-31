@@ -22,7 +22,7 @@
 
 delay_base_bwe_t* delay_bwe_create()
 {
-	delay_base_bwe_t* bwe = calloc(1, sizeof(delay_base_bwe_t));
+	delay_base_bwe_t* bwe = (delay_base_bwe_t*)calloc(1, sizeof(delay_base_bwe_t));
 	bwe->last_seen_ms = -1;
 	bwe->first_ts = GET_SYS_MS();
 

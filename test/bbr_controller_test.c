@@ -71,7 +71,7 @@ static void test_bbr_controller_destroy(test_bbr_controller_t* ctrl)
 	}
 
 	LIST_FOREACH(ctrl->outstanding, iter){
-		packet = iter->pdata;
+		packet = (bbr_packet_info_t*)iter->pdata;
 		free(packet);
 	}
 
@@ -117,7 +117,7 @@ static void test_run_simulation(test_bbr_controller_t* ctrl, int64_t duration,
 			data_in_flight = 0;
 
 			LIST_FOREACH(ctrl->outstanding, iter){
-				packet = iter->pdata;
+				packet = (bbr_packet_info_t*)iter->pdata;
 				data_in_flight += packet->size;
 			}
 			if (data_in_flight > ctrl->update.congestion_window)
@@ -131,7 +131,7 @@ static void test_run_simulation(test_bbr_controller_t* ctrl, int64_t duration,
 			sent_packet.data_in_flight = sent_packet.size;
 			
 			LIST_FOREACH(ctrl->outstanding, iter){
-				packet = iter->pdata;
+				packet = (bbr_packet_info_t*)iter->pdata;
 				sent_packet.data_in_flight += packet->size;
 			}
 
@@ -142,7 +142,7 @@ static void test_run_simulation(test_bbr_controller_t* ctrl, int64_t duration,
 			ctrl->accumulated_buffer += time_in_flight;
 			total_delay = propagation_delay + ctrl->accumulated_buffer;
 
-			packet = calloc(1, sizeof(bbr_packet_info_t));
+			packet = (bbr_packet_info_t*)calloc(1, sizeof(bbr_packet_info_t));
 			*packet = sent_packet;
 			packet->recv_time = sent_packet.send_time + total_delay;
 
@@ -157,7 +157,7 @@ static void test_run_simulation(test_bbr_controller_t* ctrl, int64_t duration,
 		if (list_size(ctrl->outstanding) >= 2){
 			LIST_FOREACH(ctrl->outstanding, iter){
 				if (++index == 2){
-					second_packet = iter->pdata;
+					second_packet = (bbr_packet_info_t*)iter->pdata;
 					break;
 				}
 			}
@@ -166,13 +166,13 @@ static void test_run_simulation(test_bbr_controller_t* ctrl, int64_t duration,
 			if (second_packet->recv_time + propagation_delay <= ctrl->curr_ts){
 				feedback.prior_in_flight = 0;
 				LIST_FOREACH(ctrl->outstanding, iter){
-					packet = iter->pdata;
+					packet = (bbr_packet_info_t*)iter->pdata;
 					feedback.prior_in_flight += packet->size;
 				}
 
 				feedback.packets_num = 0;
 				while (list_size(ctrl->outstanding) > 0){
-					packet = list_front(ctrl->outstanding);
+					packet = (bbr_packet_info_t*)list_front(ctrl->outstanding);
 					if (ctrl->curr_ts >= packet->recv_time + propagation_delay){
 						feedback.packets[feedback.packets_num++] = *packet;
 						ctrl->last_ts = packet->recv_time;
@@ -188,11 +188,11 @@ static void test_run_simulation(test_bbr_controller_t* ctrl, int64_t duration,
 
 				feedback.data_in_flight = 0;
 				LIST_FOREACH(ctrl->outstanding, iter){
-					packet = iter->pdata;
+					packet = (bbr_packet_info_t*)iter->pdata;
 					feedback.data_in_flight += packet->size;
 				}
-
-				ctrl->update = bbr_on_feedback(ctrl->bbr, &feedback,0/*liucm fix compile bug*/);
+                          
+				ctrl->update = bbr_on_feedback(ctrl->bbr, &feedback,0/*liucm add for fix compile bug*/);
 			}
 		}
 

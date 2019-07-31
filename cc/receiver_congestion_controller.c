@@ -10,7 +10,7 @@
 
 receiver_cc_t* receiver_cc_create(int min_bitrate, int max_bitrate, int packet_header_size, void* handler, send_feedback_func cb)
 {
-	receiver_cc_t* cc = calloc(1, sizeof(receiver_cc_t));
+	receiver_cc_t* cc = (receiver_cc_t*)calloc(1, sizeof(receiver_cc_t));
 	cc->min_bitrate = min_bitrate;
 	cc->max_bitrate = max_bitrate;
 	cc->proxy = estimator_proxy_create(packet_header_size, 0);

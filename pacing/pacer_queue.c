@@ -9,7 +9,7 @@
 
 static void pacer_free_packet_event(skiplist_item_t key, skiplist_item_t val, void* args)
 {
-	packet_event_t* ev = val.ptr;
+	packet_event_t* ev = (packet_event_t*)val.ptr;
 	if (ev != NULL){
 		free(ev);
 	}
@@ -50,7 +50,7 @@ int pacer_queue_push(pacer_queue_t* que, packet_event_t* ev)
 	key.u32 = ev->seq;
 	iter = skiplist_search(que->cache, key);
 	if (iter == NULL){
-		packet = calloc(1, sizeof(packet_event_t));
+		packet = (packet_event_t*)calloc(1, sizeof(packet_event_t));
 		*packet = *ev;
 		packet->sent = 0;
 		val.ptr = packet;
@@ -82,7 +82,7 @@ packet_event_t*	pacer_queue_front(pacer_queue_t* que)
 	/*取一个未发送的packet*/
 	iter = skiplist_first(que->cache);
 	while(iter != NULL){
-		ret = iter->val.ptr;
+		ret = (packet_event_t*)iter->val.ptr;
 		if (ret->sent == 0)
 			break;
 		else
@@ -99,7 +99,7 @@ void pacer_queue_final(pacer_queue_t* que)
 
 	/*删除已经发送的报文*/
 	while (que->l->size > 0){
-		packet = list_front(que->l);
+		packet = (packet_event_t*)list_front(que->l);
 		if (packet->sent == 1){
 			list_pop(que->l);
 			key.u32 = packet->seq;
@@ -116,7 +116,7 @@ void pacer_queue_final(pacer_queue_t* que)
 		que->oldest_ts = -1;
 	}
 	else{
-		packet = list_front(que->l);
+		packet = (packet_event_t*)list_front(que->l);
 		que->oldest_ts = packet->que_ts;
 	}
 }
@@ -129,7 +129,7 @@ void pacer_queue_sent_by_id(pacer_queue_t* que, uint32_t id)
 	key.u32 = id;
 	iter = skiplist_search(que->cache, key);
 	if (iter != NULL)
-		pacer_queue_sent(que, iter->val.ptr);
+		pacer_queue_sent(que, (packet_event_t*)iter->val.ptr);
 }
 
 /*删除第一个单元*/

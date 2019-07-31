@@ -21,7 +21,7 @@ typedef struct
 
 static over_tester_t* over_create()
 {
-	over_tester_t* tester = calloc(1, sizeof(over_tester_t));
+	over_tester_t* tester = (over_tester_t*)calloc(1, sizeof(over_tester_t));
 	
 	tester->detector = overuse_create();
 	tester->arrival = create_inter_arrival(0, kTimestampGroupLengthUs);
