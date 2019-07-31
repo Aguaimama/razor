@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "inter_arrival.h"
 #include "cf_platform.h"
 #include "common_test.h"

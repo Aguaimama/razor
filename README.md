@@ -1,3 +1,21 @@
+20190731 liucm add
+增加在linux下编译
+1.编译收发测试程序sim_receiver_test和sim_sender_test
+  在razor目录下执行make clean;make
+  在razor目录下生成sim_receiver_test和sim_sender_test
+
+2.编译sim_relay
+  cd razor/sim_test/sim_relay
+  make
+  在razor/sim_test/sim_relay目录下生成sim_relay
+
+  具体用途暂未了解
+
+3.编译test目录下代码,里面部分代码 根据编译错误进行了修改，比如参数数量不对，是更正了数量，不保证传参的含义，只暂时解决编译问题。
+ 在razor目录下执行make clean;make
+ 在razor目录下生成razortest,可以在这里测试单位测试代码 
+
+
 # razor
  A google's congestion Control Algorithm
 razor是一个GCC算法实现项目，主体算法来源于webRTC的CC实现，主要了解决点对点视频传输过程中网络拥塞的问题。razor是通过传输的延迟间隔来评估网络的过载与拥塞，
