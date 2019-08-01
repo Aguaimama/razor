@@ -17,18 +17,18 @@ enum
 {
 	MIN_MSG_ID	=	0x10,
 
-	SIM_CONNECT,			/*连接接收端请求*/
-	SIM_CONNECT_ACK,		/*响应*/
+	SIM_CONNECT,			/*0x11 连接接收端请求*/
+	SIM_CONNECT_ACK,		/*0x12响应*/
 
-	SIM_DISCONNECT,
-	SIM_DISCONNECT_ACK,
+	SIM_DISCONNECT,           /*0x13*/
+	SIM_DISCONNECT_ACK,   /*0x14*/
 
-	SIM_PING,
-	SIM_PONG,
+	SIM_PING,                      /*0x15*/
+	SIM_PONG,                     /*0x16*/
 
-	SIM_SEG,
-	SIM_SEG_ACK,
-	SIM_FEEDBACK,
+	SIM_SEG,                        /*0x17*/
+	SIM_SEG_ACK,                 /*0x18*/
+	SIM_FEEDBACK,              /*0x19*/
 	SIM_FIR,				/*请求关键帧重传*/
 	SIM_PAD,				/*padding报文*/
 

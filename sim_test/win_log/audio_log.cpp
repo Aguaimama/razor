@@ -54,7 +54,7 @@ static void get_fullexepath(char* path)
 	if(ptr != NULL)
 	{
 		memcpy(path,buffer,strlen(buffer));
-		strcat(path,"\\");
+		strcat(path,"/");
 	}
 	
 }
@@ -69,8 +69,9 @@ int open_win_log(const char* filename)
 	char path[1024] = {0};
 	get_fullexepath(path);
 	strcat(path,filename);
-	
+	printf("path :%s\n",path);
 	strcpy(log_file->filename, path);
+       printf("log_file :%s\n",log_file->filename);
 	log_file->fp = fopen(log_file->filename, "w");
 	if (log_file->fp == NULL){
 		printf("open %s failed!\r\n", log_file->filename);
@@ -105,7 +106,7 @@ static const char* get_file_name(const char* pathname)
 	int32_t size = strlen(pathname);
 
 	char *pos = (char *)pathname + size;
-	while (*pos != '\\' && pos != pathname)
+	while (*pos != '/' && pos != pathname)
 		pos--;
 
 	if (pos == pathname)
