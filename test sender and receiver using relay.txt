@@ -1,0 +1,19 @@
+中转丢包测试
+(1)在114服务器上运行中转程序
+将中转程序sim_test/sim_relay/下的可执行程序 sim_relay拷贝到114服务器上。
+
+cd /home/liucm/liucm
+./sim_relay 192.168.200.146:16000 192.168.200.146:16001
+出现以下打印正常：
+peer1 addr = 192.168.200.146:16000
+peer2 addr = 192.168.200.146:16001
+
+
+(2)sim_sender_test.cpp上main函数中修改
+	if (sim_connect(1000, "192.168.200.114", 9200, bbr_transport, 0) != 0){
+		printf("sim connect failed!\n");
+		goto err;
+	}
+	
+(3)重新编译生成	sim_sender_test
+(4)在146上开两个终端，分别运行sim_sender_test和sim_receiver_test,然后收发包程序可以正常运行
